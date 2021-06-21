@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace FluencePrototype\SessionService;
+namespace FluencePrototype\Session;
 
 /**
  * Class SessionService
- * @package FluencePrototype\SessionService
+ * @package FluencePrototype\Session
  */
 class SessionService
 {

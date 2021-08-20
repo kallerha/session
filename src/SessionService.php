@@ -17,9 +17,9 @@ class SessionService
      */
     public function set(string $name, string|int $value): void
     {
-        $_SESSION[$name] = $value;
-
-        session_regenerate_id(delete_old_session: true);
+        if (session_status() === PHP_SESSION_ACTIVE) {
+            $_SESSION[$name] = $value;
+        }
     }
 
     /**
@@ -27,7 +27,9 @@ class SessionService
      */
     public function unset(string $name): void
     {
-        unset($_SESSION[$name]);
+        if (session_status() === PHP_SESSION_ACTIVE) {
+            unset($_SESSION[$name]);
+        }
     }
 
     /**
@@ -36,7 +38,7 @@ class SessionService
      */
     public function isSet(string $name): bool
     {
-        if (isset($_SESSION[$name])) {
+        if (session_status() === PHP_SESSION_ACTIVE && isset($_SESSION[$name])) {
             return true;
         }
 

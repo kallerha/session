@@ -58,11 +58,4 @@ class SessionService
         return null;
     }
 
-    public function __construct()
-    {
-        if (session_status() === PHP_SESSION_ACTIVE) {
-            session_write_close();
-        }
-    }
-
 }

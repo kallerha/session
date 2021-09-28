@@ -17,9 +17,13 @@ class SessionService
      */
     public function set(string $name, string|int $value): void
     {
-        if (session_status() === PHP_SESSION_ACTIVE) {
-            $_SESSION[$name] = $value;
+        if (session_status() !== PHP_SESSION_ACTIVE) {
+            session_start();
         }
+
+        $_SESSION[$name] = $value;
+
+        session_write_close();
     }
 
     /**
@@ -27,9 +31,13 @@ class SessionService
      */
     public function unset(string $name): void
     {
-        if (session_status() === PHP_SESSION_ACTIVE) {
-            unset($_SESSION[$name]);
+        if (session_status() !== PHP_SESSION_ACTIVE) {
+            session_start();
         }
+
+        unset($_SESSION[$name]);
+
+        session_write_close();
     }
 
     /**
@@ -38,11 +46,15 @@ class SessionService
      */
     public function isSet(string $name): bool
     {
-        if (session_status() === PHP_SESSION_ACTIVE && isset($_SESSION[$name])) {
-            return true;
+        if (session_status() !== PHP_SESSION_ACTIVE) {
+            session_start();
         }
 
-        return false;
+        $isSet = isset($_SESSION[$name]);
+
+        session_write_close();
+
+        return $isSet;
     }
 
     /**
@@ -52,7 +64,15 @@ class SessionService
     public function get(string $name): string|int|null
     {
         if ($this->isSet($name)) {
-            return $_SESSION[$name];
+            if (session_status() !== PHP_SESSION_ACTIVE) {
+                session_start();
+            }
+
+            $value = $_SESSION[$name];
+
+            session_write_close();
+
+            return $value;
         }
 
         return null;

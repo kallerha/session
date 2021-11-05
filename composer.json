@@ -19,5 +19,5 @@
       "FluencePrototype\\Session\\": "src/"
     }
   },
-  "minimum-stability": "stable"
+  "minimum-stability": "dev"
 }

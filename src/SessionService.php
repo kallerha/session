@@ -23,7 +23,9 @@ class SessionService
 
         $_SESSION[$name] = $value;
 
-        session_write_close();
+        if (session_status() === PHP_SESSION_ACTIVE) {
+            session_write_close();
+        }
     }
 
     /**
@@ -37,7 +39,9 @@ class SessionService
 
         unset($_SESSION[$name]);
 
-        session_write_close();
+        if (session_status() === PHP_SESSION_ACTIVE) {
+            session_write_close();
+        }
     }
 
     /**
@@ -52,7 +56,9 @@ class SessionService
 
         $isSet = isset($_SESSION[$name]);
 
-        session_write_close();
+        if (session_status() === PHP_SESSION_ACTIVE) {
+            session_write_close();
+        }
 
         return $isSet;
     }
@@ -70,7 +76,9 @@ class SessionService
 
             $value = $_SESSION[$name];
 
-            session_write_close();
+            if (session_status() === PHP_SESSION_ACTIVE) {
+                session_write_close();
+            }
 
             return $value;
         }

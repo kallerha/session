@@ -13,9 +13,9 @@ class SessionService
 
     /**
      * @param string $name
-     * @param string|int $value
+     * @param mixed $value
      */
-    public function set(string $name, string|int $value): void
+    public function set(string $name, mixed $value): void
     {
         if (session_status() !== PHP_SESSION_ACTIVE) {
             session_start();
@@ -65,9 +65,9 @@ class SessionService
 
     /**
      * @param string $name
-     * @return string|int|null
+     * @return mixed
      */
-    public function get(string $name): string|int|null
+    public function get(string $name): mixed
     {
         if ($this->isSet($name)) {
             if (session_status() !== PHP_SESSION_ACTIVE) {
